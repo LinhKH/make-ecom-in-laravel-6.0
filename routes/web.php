@@ -76,6 +76,10 @@ Route::match(['GET','POST'],'/check-email','UsersController@checkEmail');
 // Check Pincode
 Route::post('/check-pincode','ProductsController@checkPincode');
 
+// Check Subscriber Email
+Route::post('/check-subscriber-email','NewsletterController@checkSubscriber');
+Route::post('/add-subscriber-email','NewsletterController@addSubscriber');
+
 // All Routes after Login
 Route::group(['middleware'=>['frontlogin']],function(){
 	// Users Account Page
@@ -166,6 +170,9 @@ Route::group(['middleware' => ['adminlogin']], function () {
 	// Admin Users Route
 	Route::get('/admin/view-users','UsersController@viewUsers');
 
+	// Admin Users Export
+	Route::get('/admin/export-users','UsersController@exportUsers');
+
 	// Admin Admins/Sub-Admins Route
 	Route::get('/admin/view-admins','AdminController@viewAdmins');
 
@@ -214,6 +221,21 @@ Route::group(['middleware' => ['adminlogin']], function () {
 
 	// Update Shipping Charges
 	Route::match(['get','post'],'/admin/edit-shipping/{id}','ShippingController@editShipping');
+
+	// View Newletter Subscriber
+	Route::get('/admin/view-newsletter-subscriber','NewsletterController@viewSubscriber');
+
+	// Update Newletter Subscriber
+	Route::match(['get','post'],'/admin/edit-newsletter-subscriber/{id}','NewsletterController@editSubscriber');
+
+	// Delete Newletter Subscriber
+	Route::get('/admin/delete-newsletter-subscriber/{id}','NewsletterController@deleteSubscriber');
+	
+	// Export Newletter Subscriber
+	Route::get('/admin/export-newsletter-emails','NewsletterController@exportSubscriber');
+
+	// Update Newletter Subscriber
+	Route::get('/admin/update-newsletter-status/{id}/{status}','NewsletterController@editStatus');
 });
 
 
