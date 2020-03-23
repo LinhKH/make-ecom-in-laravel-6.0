@@ -24,12 +24,22 @@
       <div class="span12">
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"> <i class="icon-info-sign"></i> </span>
-            <h5>Add Admins</h5>
+            <h5>Add Admins / Sub-Admins</h5>
           </div>
           <div class="widget-content nopadding">
             <form class="form-horizontal" method="post" action="{{ url('admin/add-admins') }}" name="add_admin" id="add_admin" novalidate="novalidate">{{ csrf_field() }}
               <div class="control-group">
-                <label class="control-label">UserName</label>
+                <label class="control-label">Type</label>
+                <div class="controls" style="width:244px;">
+                  <select name="type" id="type">
+                    <option value="Admin">Admin</option>
+                    <option value="Sub Admin">Sub Admin</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="control-group">
+                <label class="control-label">Username</label>
                 <div class="controls">
                   <input type="text" name="username" id="username">
                 </div>
@@ -38,6 +48,15 @@
                 <label class="control-label">Password</label>
                 <div class="controls">
                   <input type="password" name="password" id="password">
+                </div>
+              </div>
+              <div class="control-group" id="access">
+                <label class="control-label">Access</label>
+                <div class="controls">
+                  <input type="checkbox" name="categories_access" id="categories_access" value="1">&nbsp;Categories&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="products_access" id="products_access" value="1">&nbsp;Products&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="orders_access" id="orders_access" value="1">&nbsp;Orders&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="users_access" id="users_access" value="1">&nbsp;Users&nbsp;&nbsp;&nbsp;
                 </div>
               </div>
               <div class="control-group">

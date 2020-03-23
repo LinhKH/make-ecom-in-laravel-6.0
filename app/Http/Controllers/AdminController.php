@@ -102,15 +102,28 @@ class AdminController extends Controller
             $data = $request->all();
             $adminCount = Admin::where(['username' => $data['username'] ])->count();
             if($adminCount>0) {
-                return redirect()->back()->with('flash_message_error', 'Admin Username already exists! Please choose another.');
+                return redirect()->back()->with('flash_message_error', 'Admin / Sub-Admin already exists! Please choose another.');
             } else {
                 $admin = new Admin;
-                $admin->username = isset($data['username']) ? $data['username'] : null;
-                $admin->password = isset($data['password']) ? md5($data['password']) : null;
-                $admin->status = isset($data['status']) ? $data['status'] : null;
-                $admin->save();
-
-                return redirect()->back()->with('flash_message_success', 'Admin Username added successfully.');
+                if($data['type'] == 'Admin') {
+                    $admin->type = isset($data['type']) ? $data['type'] : null;
+                    $admin->username = isset($data['username']) ? $data['username'] : null;
+                    $admin->password = isset($data['password']) ? md5($data['password']) : null;
+                    $admin->status = isset($data['status']) ? $data['status'] : null;
+                    $admin->save();
+                    return redirect()->back()->with('flash_message_success', 'Admin added successfully.');
+                } else if($data['type'] == 'Sub Admin') {
+                    $admin->type = isset($data['type']) ? $data['type'] : null;
+                    $admin->username = isset($data['username']) ? $data['username'] : null;
+                    $admin->password = isset($data['password']) ? md5($data['password']) : null;
+                    $admin->status = isset($data['status']) ? $data['status'] : null;
+                    $admin->categories_access = isset($data['categories_access']) ? $data['categories_access'] : 0;
+                    $admin->products_access = isset($data['products_access']) ? $data['products_access'] : 0;
+                    $admin->orders_access = isset($data['orders_access']) ? $data['orders_access'] : 0;
+                    $admin->users_access = isset($data['users_access']) ? $data['users_access'] : 0;
+                    $admin->save();
+                    return redirect()->back()->with('flash_message_success', 'Sub-Admin added successfully.');
+                }
             }
         }
         return view('admin.admins.add_admins');

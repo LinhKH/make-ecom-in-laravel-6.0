@@ -32,6 +32,8 @@
                 <tr>
                   <th>ID</th>
                   <th>Username</th>
+                  <th>Type</th>
+                  <th>Roles</th>
                   <th>Status</th>
                   <th>Created on</th>
                   <th>Updated on</th>
@@ -39,9 +41,31 @@
               </thead>
               <tbody>
                 @foreach($admins as $admin)
+                <?php
+                  if($admin->type == "Admin") {
+                    $roles = "All";
+                  } else {
+                    $roles = "";
+                    if($admin->categories_access == 1) {
+                      $roles .= "Categories, ";
+                    }
+                    if($admin->products_access == 1) {
+                      $roles .= "Products, ";
+                    }
+                    if($admin->orders_access == 1) {
+                      $roles .= "Orders, ";
+                    }
+                    if($admin->users_access == 1) {
+                      $roles .= "Users, ";
+                    }
+                  }
+                  $roles = rtrim($roles,",");
+                ?>
                 <tr class="gradeX">
                   <td class="center">{{ $admin->id }}</td>
                   <td class="center">{{ $admin->username }}</td>
+                  <td class="center">{{ $admin->type }}</td>
+                  <td class="center"><?php echo $roles?></td>
                   <td class="center">
                     @if($admin->status == 1)
                       <span style="color:green">Active</span>
