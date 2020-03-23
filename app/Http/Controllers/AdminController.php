@@ -13,6 +13,9 @@ class AdminController extends Controller
 {
     public function login(Request $request)
     {
+        if (!empty(Session::has('adminSession'))) {
+            return redirect()->back();
+        }
         if ($request->isMethod('post')) {
             $data = $request->input();
             $adminCount = Admin::where(['username' => $data['username'], 'password' => md5($data['password']), 'status' => 1])->count();
@@ -97,11 +100,12 @@ class AdminController extends Controller
         return view('admin.admins.view_admins')->with(compact('admins'));
     }
 
-    public function addAdmins(Request $request) {
-        if($request->isMethod('post')) {
+    public function addAdmins(Request $request)
+    {
+        if ($request->isMethod('post')) {
             $data = $request->all();
-            $adminCount = Admin::where(['username' => $data['username'] ])->count();
-            if($adminCount>0) {
+            $adminCount = Admin::where(['username' => $data['username']])->count();
+            if ($adminCount > 0) {
                 return redirect()->back()->with('flash_message_error', 'Admin Username already exists! Please choose another.');
             } else {
                 $admin = new Admin;

@@ -68,6 +68,11 @@
         <li <?php if (preg_match("/view-shipping/i", $url)) { ?> class="active" <?php } ?>><a href="{{ url('/admin/view-shipping')}}">Shipping Charges</a></li>
       </ul>
     </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Newsletter Subscriber</span> <span class="label label-important">1</span></a>
+      <ul <?php if (preg_match("/newsletter-subscriber/i", $url)) { ?> style="display: block;" <?php } ?>>
+        <li <?php if (preg_match("/newsletter-subscriber$/i", $url)) { ?> class="active" <?php } ?>><a href="{{ url('/admin/view-newsletter-subscriber')}}">View Subscriber</a></li>
+      </ul>
+    </li>
   </ul>
 </div>
 <!--sidebar-menu-->

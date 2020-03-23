@@ -19,6 +19,9 @@
     @endif
   </div>
   <div class="container-fluid">
+    <a href="{{ url('admin/export-users') }}" class="btn btn-primary btn-mini">Export</a>
+  </div>
+  <div class="container-fluid">
     <hr>
     <div class="row-fluid">
       <div class="span12">
