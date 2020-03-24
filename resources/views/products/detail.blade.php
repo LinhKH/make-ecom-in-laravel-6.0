@@ -142,7 +142,7 @@ use App\Product; ?>
 					<div class="tab-content">
 						<div class="tab-pane active" id="description">
 							<div class="col-sm-12">
-								<p>{{ $productDetails->description }}</p>
+								<p> <?php echo nl2br($productDetails->description) ?></p>
 							</div>
 						</div>
 

@@ -129,6 +129,7 @@ Route::group(['middleware' => ['adminlogin']], function () {
 	Route::match(['get','post'],'/admin/edit-product/{id}','ProductsController@editProduct');
 	Route::get('/admin/delete-product/{id}','ProductsController@deleteProduct');
 	Route::get('/admin/view-products','ProductsController@viewProducts');
+	Route::get('/admin/export-products','ProductsController@exportProducts');
 	Route::get('/admin/delete-product-image/{id}','ProductsController@deleteProductImage');
 	Route::get('/admin/delete-product-video/{id}','ProductsController@deleteProductVideo');
 	
@@ -160,6 +161,9 @@ Route::group(['middleware' => ['adminlogin']], function () {
 
 	// Order Invoice
 	Route::get('/admin/view-order-invoice/{id}','ProductsController@viewOrderInvoice');
+
+	// PDF Invoice
+	Route::get('/admin/view-pdf-invoice/{id}','ProductsController@viewPDFInvoice');
 
 	// Update Order Status
 	Route::post('/admin/update-order-status','ProductsController@updateOrderStatus');

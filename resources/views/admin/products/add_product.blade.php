@@ -6,19 +6,20 @@
     <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Products</a> <a href="#" class="current">Add Product</a> </div>
     <h1>Products</h1>
     @if(Session::has('flash_message_error'))
-            <div class="alert alert-error alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button> 
-                    <strong>{!! session('flash_message_error') !!}</strong>
-            </div>
-        @endif   
-        @if(Session::has('flash_message_success'))
-            <div class="alert alert-success alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button> 
-                    <strong>{!! session('flash_message_success') !!}</strong>
-            </div>
-        @endif
+    <div class="alert alert-error alert-block">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong>{!! session('flash_message_error') !!}</strong>
+    </div>
+    @endif
+    @if(Session::has('flash_message_success'))
+    <div class="alert alert-success alert-block">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong>{!! session('flash_message_success') !!}</strong>
+    </div>
+    @endif
   </div>
-  <div class="container-fluid"><hr>
+  <div class="container-fluid">
+    <hr>
     <div class="row-fluid">
       <div class="span12">
         <div class="widget-box">
@@ -56,13 +57,13 @@
               <div class="control-group">
                 <label class="control-label">Description</label>
                 <div class="controls">
-                  <textarea name="description"></textarea>
+                  <textarea name="description" class="textare_editor_des"></textarea>
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label">Material & Care</label>
                 <div class="controls">
-                  <textarea name="care"></textarea>
+                  <textarea name="care" class="textare_editor_care"></textarea>
                 </div>
               </div>
               <div class="control-group">
@@ -71,9 +72,9 @@
                   <select name="sleeve" class="form-control">
                     <option value="">Select Sleeve</option>
                     @foreach($sleeveArray as $sleeve)
-                      <option value="{{ $sleeve }}">{{ $sleeve }}</option>
+                    <option value="{{ $sleeve }}">{{ $sleeve }}</option>
                     @endforeach
-                  </select>  
+                  </select>
                 </div>
               </div>
               <div class="control-group">
@@ -82,9 +83,9 @@
                   <select name="pattern" class="form-control">
                     <option value="">Select Pattern</option>
                     @foreach($patternArray as $pattern)
-                      <option value="{{ $pattern }}">{{ $pattern }}</option>
+                    <option value="{{ $pattern }}">{{ $pattern }}</option>
                     @endforeach
-                  </select>  
+                  </select>
                 </div>
               </div>
               <div class="control-group">

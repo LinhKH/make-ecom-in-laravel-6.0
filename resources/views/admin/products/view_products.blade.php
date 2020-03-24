@@ -6,17 +6,20 @@
     <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Products</a> <a href="#" class="current">View Products</a> </div>
     <h1>Products</h1>
     @if(Session::has('flash_message_error'))
-            <div class="alert alert-error alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button> 
-                    <strong>{!! session('flash_message_error') !!}</strong>
-            </div>
-        @endif   
-        @if(Session::has('flash_message_success'))
-            <div class="alert alert-success alert-block">
-                <button type="button" class="close" data-dismiss="alert">×</button> 
-                    <strong>{!! session('flash_message_success') !!}</strong>
-            </div>
-        @endif
+    <div class="alert alert-error alert-block">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong>{!! session('flash_message_error') !!}</strong>
+    </div>
+    @endif
+    @if(Session::has('flash_message_success'))
+    <div class="alert alert-success alert-block">
+      <button type="button" class="close" data-dismiss="alert">×</button>
+      <strong>{!! session('flash_message_success') !!}</strong>
+    </div>
+    @endif
+  </div>
+  <div class="container-fluid">
+    <a href="{{ url('admin/export-products') }}" class="btn btn-primary btn-mini">Export</a>
   </div>
   <div class="container-fluid">
     <hr>
@@ -43,7 +46,7 @@
                 </tr>
               </thead>
               <tbody>
-              	@foreach($products as $product)
+                @foreach($products as $product)
                 <tr class="gradeX">
                   <td class="center">{{ $product->id }}</td>
                   <td class="center">{{ $product->category_id }}</td>
@@ -59,28 +62,28 @@
                   </td>
                   <td class="center">@if($product->feature_item == 1) Yes @else No @endif</td>
                   <td class="center">
-                    <a href="#myModal{{ $product->id }}" data-toggle="modal" class="btn btn-success btn-mini">View</a> 
-                    <a href="{{ url('/admin/edit-product/'.$product->id) }}" class="btn btn-primary btn-mini">Edit</a> 
-                    <a href="{{ url('/admin/add-attributes/'.$product->id) }}" class="btn btn-success btn-mini">Add</a>
-                    <a href="{{ url('/admin/add-images/'.$product->id) }}" class="btn btn-info btn-mini">Add</a>
+                    <a href="#myModal{{ $product->id }}" data-toggle="modal" class="btn btn-success btn-mini">View</a>
+                    <a href="{{ url('/admin/edit-product/'.$product->id) }}" class="btn btn-primary btn-mini">Edit</a>
+                    <a href="{{ url('/admin/add-attributes/'.$product->id) }}" class="btn btn-success btn-mini">Add Attr</a>
+                    <a href="{{ url('/admin/add-images/'.$product->id) }}" class="btn btn-info btn-mini">Add Img</a>
                     <a id="delProduct" rel="{{ $product->id }}" rel1="delete-product" href="javascript:" class="btn btn-danger btn-mini deleteRecord">Delete</a>
- 
-                        <div id="myModal{{ $product->id }}" class="modal hide">
-                          <div class="modal-header">
-                            <button data-dismiss="modal" class="close" type="button">×</button>
-                            <h3>{{ $product->product_name }} Full Details</h3>
-                          </div>
-                          <div class="modal-body">
-                            <p>Product ID: {{ $product->id }}</p>
-                            <p>Category ID: {{ $product->category_id }}</p>
-                            <p>Product Code: {{ $product->product_code }}</p>
-                            <p>Product Color: {{ $product->product_color }}</p>
-                            <p>Price: INR {{ $product->price }}</p>
-                            <p>Fabric: </p>
-                            <p>Pattern: </p>
-                            <p>Description: {{ $product->description }}</p>
-                          </div>
-                        </div>
+
+                    <div id="myModal{{ $product->id }}" class="modal hide">
+                      <div class="modal-header">
+                        <button data-dismiss="modal" class="close" type="button">×</button>
+                        <h3>{{ $product->product_name }} Full Details</h3>
+                      </div>
+                      <div class="modal-body">
+                        <p>Product ID: {{ $product->id }}</p>
+                        <p>Category ID: {{ $product->category_id }}</p>
+                        <p>Product Code: {{ $product->product_code }}</p>
+                        <p>Product Color: {{ $product->product_color }}</p>
+                        <p>Price: INR {{ $product->price }}</p>
+                        <p>Fabric: </p>
+                        <p>Pattern: </p>
+                        <p>Description: {{ $product->description }}</p>
+                      </div>
+                    </div>
 
                   </td>
                 </tr>

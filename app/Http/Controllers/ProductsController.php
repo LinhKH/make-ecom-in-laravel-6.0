@@ -21,6 +21,9 @@ use App\Order;
 use App\OrdersProduct;
 use Carbon\Carbon;
 use DB;
+use App\Exports\productExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Dompdf\Dompdf;
 
 class ProductsController extends Controller
 {
@@ -75,7 +78,7 @@ class ProductsController extends Controller
 
             // Upload Image
             if ($request->hasFile('image')) {
-                $image_tmp = Input::file('image');
+                $image_tmp = $request->file('image');
                 if ($image_tmp->isValid()) {
                     // Upload Images after Resize
                     $extension = $image_tmp->getClientOriginalExtension();
@@ -94,7 +97,7 @@ class ProductsController extends Controller
 
             // Upload Video
             if ($request->hasFile('video')) {
-                $video_tmp = Input::file('video');
+                $video_tmp = $request->file('video');
                 $video_name = $video_tmp->getClientOriginalName();
                 $video_path = 'videos/';
                 $video_tmp->move($video_path, $video_name);
@@ -160,7 +163,7 @@ class ProductsController extends Controller
 
             // Upload Image
             if ($request->hasFile('image')) {
-                $image_tmp = Input::file('image');
+                $image_tmp = $request->file('image');
                 if ($image_tmp->isValid()) {
                     // Upload Images after Resize
                     $extension = $image_tmp->getClientOriginalExtension();
@@ -181,7 +184,7 @@ class ProductsController extends Controller
 
             // Upload Video
             if ($request->hasFile('video')) {
-                $video_tmp = Input::file('video');
+                $video_tmp = $request->file('video');
                 $video_name = $video_tmp->getClientOriginalName();
                 $video_path = 'videos/';
                 $video_tmp->move($video_path, $video_name);
@@ -335,6 +338,11 @@ class ProductsController extends Controller
         $products = json_decode(json_encode($products));
         //echo "<pre>"; print_r($products); die;
         return view('admin.products.view_products')->with(compact('products'));
+    }
+
+    public function exportProducts()
+    {
+        return Excel::download(new productExport, 'products.xlsx');
     }
 
     public function deleteProduct($id = null)
@@ -1148,6 +1156,119 @@ class ProductsController extends Controller
         return view('admin.orders.order_invoice')->with(compact('orderDetails', 'userDetails'));
     }
 
+    public function viewPDFInvoice($order_id)
+    {
+        // if(Session::get('adminDetails')['orders_access'] ==0) {
+        //     return redirect('/admin/dashboard')->with('flash_message_error', 'You have no access for this module');
+        // }
+        $orderDetails = Order::with('orders')->where('id', $order_id)->first();
+        $orderDetails = json_decode(json_encode($orderDetails));
+        $user_id = $orderDetails->user_id;
+        $userDetails = User::where('id', $user_id)->first();
+
+        $output = '
+        <!DOCTYPE html>
+        <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <title>Example 1</title>
+            <link rel="stylesheet" href="./css/backend_css/style_pdf.css" media="all" />
+          </head>
+          <body>
+            <header class="clearfix">
+              <div id="logo">
+                <img src="./images/backend_images/logo_pdf.png">
+              </div>
+              <h1>INVOICE ' . $orderDetails->id . '</h1>
+              <div id="project" class="clearfix">
+                <div><span>Billed To: </span></div>
+                <div>' . $userDetails->name . '</div>
+                <div>' . $userDetails->address . '</div>
+                <div>' . $userDetails->city . '</div>
+                <div>' . $userDetails->state . '</div>
+                <div>' . $userDetails->country . '</div>
+                <div>' . $userDetails->pincode . '</div>
+                <div>' . $userDetails->mobile . '</div>
+                
+              </div>
+              <div id="project" style="float:right;">
+                
+                <div><span>Shipped To: </span></div>
+                <div>' . $orderDetails->name . '</div>
+                <div>' . $orderDetails->address . '</div>
+                <div>' . $orderDetails->city . '</div>
+                <div>' . $orderDetails->state . '</div>
+                <div>' . $orderDetails->country . '</div>
+                <div>' . $orderDetails->pincode . '</div>
+                <div>' . $orderDetails->mobile . '</div>
+                
+              </div>
+            </header>
+            <main>
+              <table>
+                <thead>
+                  <tr>
+                    <th class="service">Product Code</th>
+                    <th class="desc">Size</th>
+                    <th>Color</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Totals</th>
+                  </tr>
+                </thead>
+                <tbody>';
+        $Subtotal = 0;
+        foreach ($orderDetails->orders as $pro) {
+            $output .= '<tr>
+                    <td class="service">'.$pro->product_code.'</td>
+                    <td class="desc">'.$pro->product_size.'</td>
+                    <td class="unit">'.$pro->product_color.'</td>
+                    <td class="qty">'.$pro->product_price.'</td>
+                    <td class="qty">'.$pro->product_qty.'</td>
+                    <td class="total">INR '.$pro->product_price * $pro->product_qty.'</td>
+                  </tr>';
+            $Subtotal = $Subtotal + ($pro->product_price * $pro->product_qty);
+        }
+        $output .= '<tr>
+                    <td colspan="5">SUBTOTAL</td>
+                    <td class="total">INR ' . $Subtotal . '</td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">Shipping Charges (+)</td>
+                    <td class="total">INR 0</td>
+                  </tr>
+                  <tr>
+                    <td colspan="5">Coupon Discount (-)</td>
+                    <td class="total">INR ' . $orderDetails->coupon_amount . '</td>
+                  </tr>
+        
+                  <tr>
+                    <td colspan="5" class="grand total">GRAND TOTAL</td>
+                    <td class="grand total">INR ' . $orderDetails->grand_total . '</td>
+                  </tr>
+                </tbody>
+              </table>
+            </main>
+            <footer>
+              Invoice was created on a computer and is valid without the signature and seal.
+            </footer>
+          </body>
+        </html> ';
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($output);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
+    }
+
     public function updateOrderStatus(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -1198,6 +1319,6 @@ class ProductsController extends Controller
         $last_to_month_orders = Order::whereYear('created_at', Carbon::now()->year)
             ->whereMonth('created_at', Carbon::now()->subMonth(2))->count();
 
-        return view('admin.products.view_orders_charts')->with(compact('current_month_orders','last_month_orders','last_to_month_orders'));
+        return view('admin.products.view_orders_charts')->with(compact('current_month_orders', 'last_month_orders', 'last_to_month_orders'));
     }
 }
