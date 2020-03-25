@@ -1,6 +1,5 @@
 @extends('layouts.adminLayout.admin_design')
 @section('content')
-
 <div id="content">
   <div id="content-header">
     <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a> <a href="#">Users</a> <a href="#" class="current">View Users</a> </div>
@@ -37,6 +36,7 @@
                   <th>Status</th>
                   <th>Created on</th>
                   <th>Updated on</th>
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -75,6 +75,10 @@
                   </td>
                   <td class="center">{{ $admin->created_at }}</td>
                   <td class="center">{{ $admin->updated_at }}</td>
+                  <td class="center">
+                    <a href="{{ url('admin/edit-admins/'.$admin->id) }}" class="btn btn-primary btn-mini">Edit</a> | 
+                    <a href="{{ url('admin/delete-admins/'.$admin->id) }}" class="btn btn-danger btn-mini">Del</a>
+                  </td>
                 </tr>
                 @endforeach
               </tbody>

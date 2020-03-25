@@ -106,6 +106,7 @@ $(document).ready(function(){
 $().ready(function(){
 	// Validate Register form on keyup and submit
 	$("#registerForm").validate({
+		errorClass: "invalid",
 		rules:{
 			name:{
 				required:true,
@@ -190,6 +191,7 @@ $().ready(function(){
 
 	// Validate Login form on keyup and submit
 	$("#loginForm").validate({
+		errorClass: "error",
 		rules:{
 			email:{
 				required:true,

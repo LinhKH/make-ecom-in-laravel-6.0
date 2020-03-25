@@ -2,13 +2,24 @@
 @section('content')
 <!--main-container-part-->
 <div id="content">
-<!--breadcrumbs-->
+  <!--breadcrumbs-->
   <div id="content-header">
     <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a></div>
   </div>
-<!--End-breadcrumbs-->
-
-<!--Action boxes-->
+  <!--End-breadcrumbs-->
+  @if(Session::has('flash_message_error'))
+  <div class="alert alert-error alert-block">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>{!! session('flash_message_error') !!}</strong>
+  </div>
+  @endif
+  @if(Session::has('flash_message_success'))
+  <div class="alert alert-success alert-block">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <strong>{!! session('flash_message_success') !!}</strong>
+  </div>
+  @endif
+  <!--Action boxes-->
   <div class="container-fluid">
     <div class="quick-actions_homepage">
       <ul class="quick-actions">
@@ -25,15 +36,15 @@
 
       </ul>
     </div>
-<!--End-Action boxes-->    
+    <!--End-Action boxes-->
 
-<!--Chart-box-->    
+    <!--Chart-box-->
     <div class="row-fluid">
       <div class="widget-box">
         <div class="widget-title bg_lg"><span class="icon"><i class="icon-signal"></i></span>
           <h5>Site Analytics</h5>
         </div>
-        <div class="widget-content" >
+        <div class="widget-content">
           <div class="row-fluid">
             <div class="span9">
               <div class="chart"></div>
@@ -52,8 +63,8 @@
         </div>
       </div>
     </div>
-<!--End-Chart-box--> 
-    <hr/>
+    <!--End-Chart-box-->
+    <hr />
     <div class="row-fluid">
       <div class="span6">
         <div class="widget-box">
@@ -85,7 +96,7 @@
             </ul>
           </div>
         </div>
-        
+
       </div>
 
     </div>

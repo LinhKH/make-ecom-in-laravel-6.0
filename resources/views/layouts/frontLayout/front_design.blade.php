@@ -18,6 +18,12 @@
 	<link href="{{ asset('css/frontend_css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend_css/easyzoom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/frontend_css/passtrength.css') }}" rel="stylesheet">
+
+    <style>
+        .invalid, .error {
+            color:#FF0000;  /* red */
+        }
+    </style>
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>

@@ -109,14 +109,14 @@ class AdminController extends Controller
                 return redirect()->back()->with('flash_message_error', 'Admin Username already exists! Please choose another.');
             } else {
                 $admin = new Admin;
-                if($data['type'] == 'Admin') {
+                if ($data['type'] == 'Admin') {
                     $admin->type = isset($data['type']) ? $data['type'] : null;
                     $admin->username = isset($data['username']) ? $data['username'] : null;
                     $admin->password = isset($data['password']) ? md5($data['password']) : null;
                     $admin->status = isset($data['status']) ? $data['status'] : null;
                     $admin->save();
                     return redirect()->back()->with('flash_message_success', 'Admin added successfully.');
-                } else if($data['type'] == 'Sub Admin') {
+                } else if ($data['type'] == 'Sub Admin') {
                     $admin->type = isset($data['type']) ? $data['type'] : null;
                     $admin->username = isset($data['username']) ? $data['username'] : null;
                     $admin->password = isset($data['password']) ? md5($data['password']) : null;
@@ -132,4 +132,43 @@ class AdminController extends Controller
         }
         return view('admin.admins.add_admins');
     }
+
+    public function editAdmins(Request $request,$id){
+        $adminDetails = Admin::where('id',$id)->first();
+
+		if($request->isMethod('post')){
+			$data = $request->all();
+            /*echo "<pre>"; print_r($data); die;*/
+            if(empty($data['status'])) {
+                $data['status'] = 0;
+            }
+            if ($data['type'] == 'Admin') {
+                Admin::where('username',$data['username'])->update(['password' =>md5($data['password']), 'status' => $data['status'] ]);
+                return redirect()->back()->with('flash_message_success', 'Admin edited successfully.');
+            } else if ($data['type'] == 'Sub Admin') {
+                
+                $data['categories_access'] = !empty($data['categories_access']) ? $data['categories_access'] : 0;
+                $data['products_access'] = !empty($data['products_access']) ? $data['products_access'] : 0;
+                $data['orders_access'] = !empty($data['orders_access']) ? $data['orders_access'] : 0;
+                $data['users_access'] = !empty($data['users_access']) ? $data['users_access'] : 0;
+                Admin::where('username',$data['username'])->update([ 
+                    'password' => md5($data['password']), 
+                    'status' => $data['status'],
+                    'categories_access' => $data['categories_access'],
+                    'products_access' => $data['products_access'],
+                    'orders_access' => $data['orders_access'],
+                    'users_access' => $data['users_access'],
+                ]);
+                return redirect()->back()->with('flash_message_success', 'Sub-Admin edited successfully.');
+            }
+
+		}
+		$adminDetails = Admin::where('id',$id)->first();
+		return view('admin.admins.edit_admins')->with(compact('adminDetails'));
+    }
+
+    public function deleteAdmins($id){
+        Admin::where('id',$id)->delete();
+        return redirect()->back()->with('flash_message_success','Admins/Sub-Admins has been deleted successfully!');
+	}
 }

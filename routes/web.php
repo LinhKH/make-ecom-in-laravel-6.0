@@ -53,7 +53,8 @@ Route::post('/cart/apply-coupon','ProductsController@applyCoupon');
 // Users Login/Register Page
 Route::get('/login-register','UsersController@userLoginRegister');
 
-Route::match(['get','post'],'forgot-password','UsersController@forgotPassword');
+// Users Login Form Submit
+Route::post('user-login','UsersController@login');
 
 // Users Register Form Submit
 Route::post('/user-register','UsersController@register');
@@ -61,8 +62,8 @@ Route::post('/user-register','UsersController@register');
 // Confirm Account
 Route::get('confirm/{code}','UsersController@confirmAccount');
 
-// Users Login Form Submit
-Route::post('user-login','UsersController@login');
+// Users Forgot Password
+Route::match(['get','post'],'forgot-password','UsersController@forgotPassword');
 
 // Users logout
 Route::get('/user-logout','UsersController@logout'); 
@@ -182,6 +183,12 @@ Route::group(['middleware' => ['adminlogin']], function () {
 
 	// Add Admins/Sub-Admins Route
 	Route::match(['get','post'],'/admin/add-admins','AdminController@addAdmins');
+
+	// Edit Admins/Sub-Admins
+	Route::match(['get','post'],'/admin/edit-admins/{id}','AdminController@editAdmins');
+
+	// Delete Admins/Sub-Admins
+	Route::get('/admin/delete-admins/{id}','AdminController@deleteAdmins');
 
 	// Admin Users Charts Route
 	Route::get('/admin/view-users-charts','UsersController@viewUsersCharts');
