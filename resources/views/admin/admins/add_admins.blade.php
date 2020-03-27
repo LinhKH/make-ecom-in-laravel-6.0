@@ -53,10 +53,21 @@
               <div class="control-group" id="access">
                 <label class="control-label">Access</label>
                 <div class="controls">
-                  <input type="checkbox" name="categories_access" id="categories_access" value="1">&nbsp;Categories&nbsp;&nbsp;&nbsp;
-                  <input type="checkbox" name="products_access" id="products_access" value="1">&nbsp;Products&nbsp;&nbsp;&nbsp;
-                  <input type="checkbox" name="orders_access" id="orders_access" value="1">&nbsp;Orders&nbsp;&nbsp;&nbsp;
-                  <input type="checkbox" name="users_access" id="users_access" value="1">&nbsp;Users&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="categories_view_access" id="categories_view_access" value="1">&nbsp;View Categories&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="categories_edit_access" id="categories_edit_access" value="1">&nbsp;View and Edit Categories&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="categories_full_access" id="categories_full_access" value="1">&nbsp;View,Edit and Delete Categories&nbsp;&nbsp;&nbsp;<br>
+
+                  <input type="checkbox" name="products_view_access" id="products_view_access" value="1">&nbsp;Products View Only&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="products_edit_access" id="products_edit_access" value="1">&nbsp;Products View, Edit&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="products_full_access" id="products_full_access" value="1">&nbsp;Products View, Edit, Delete&nbsp;&nbsp;&nbsp;<br>
+
+                  <input type="checkbox" name="orders_view_access" id="orders_view_access" value="1">&nbsp;Orders View Only&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="orders_edit_access" id="orders_edit_access" value="1">&nbsp;Orders View, Edit Only&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="orders_full_access" id="orders_full_access" value="1">&nbsp;Orders View, Edit, Delete&nbsp;&nbsp;&nbsp;<br>
+
+                  <input type="checkbox" name="users_view_access" id="users_view_access" value="1">&nbsp;Users View Only&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="users_edit_access" id="users_edit_access" value="1">&nbsp;Users View, Edit Only&nbsp;&nbsp;&nbsp;
+                  <input type="checkbox" name="users_full_access" id="users_full_access" value="1">&nbsp;Users View, Edit, Delete&nbsp;&nbsp;&nbsp;
                 </div>
               </div>
               <div class="control-group">

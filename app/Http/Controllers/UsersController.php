@@ -270,6 +270,9 @@ class UsersController extends Controller
 
     public function viewUsers()
     {
+        if( Session::get('adminDetails')['users_view_access'] == 0 ) {
+            return redirect('/admin/dashboard')->with('flash_message_error', 'You have no access for this module!');
+        }
         $users = User::get();
         return view('admin.users.view_users')->with(compact('users'));
     }

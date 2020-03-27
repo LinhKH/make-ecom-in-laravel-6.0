@@ -61,6 +61,11 @@ class Product extends Model
         return $getProductStock->stock;
     }
 
+    public static function getProductPrice($product_id, $product_size) {
+        $getProductPrice = ProductsAttribute::select('price')->where(['product_id'=>$product_id, 'size'=>$product_size])->first();
+        return $getProductPrice['price'];
+    }
+
     public static function deleteCartProduct($product_id,$user_email){
         DB::table('cart')->where(['product_id'=>$product_id,'user_email'=>$user_email])->delete();
     }
@@ -98,5 +103,18 @@ class Product extends Model
             $shipping_charges = 0;
         }
         return $shipping_charges;
+    }
+
+    public static function getGrandTotal() {
+        $getGrandTotal = "";
+        $useremail = Auth::user()->email;
+        $userCart = DB::table('cart')->where('user_email', $useremail)->get();
+        $userCart = json_decode(json_encode($userCart),true);
+        foreach ($userCart as $product) {
+            $productPrice = ProductsAttribute::where([ 'product_id' => $product['product_id'], 'size' => $product['size'] ])->first();
+            $priceArray[] = $productPrice->price;
+        }
+        $grandTotal = array_sum($priceArray) - Session::get('CouponAmount') + Session::get('ShippingCharges');
+        return $grandTotal;
     }
 }
