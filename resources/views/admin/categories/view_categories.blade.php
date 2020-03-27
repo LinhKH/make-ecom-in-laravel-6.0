@@ -46,7 +46,9 @@
                   <td class="center">{{ $category->url }}</td>
                   <td class="center">
                     <a href="{{ url('/admin/edit-category/'.$category->id) }}" class="btn btn-primary btn-mini">Edit</a> 
+                    @if(Session::get('adminDetails')['categories_full_access'] == 1)
                     <a <?php /* id="delCat" href="{{ url('/admin/delete-category/'.$category->id) }}" */ ?> rel="{{ $category->id }}" rel1="delete-category" href="javascript:" class="btn btn-danger btn-mini deleteRecord">Delete</a></td>
+                    @endif
                 </tr>
                 @endforeach
               </tbody>

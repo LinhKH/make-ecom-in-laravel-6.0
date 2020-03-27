@@ -46,16 +46,16 @@
                     $roles = "All";
                   } else {
                     $roles = "";
-                    if($admin->categories_access == 1) {
+                    if($admin->categories_view_access == 1) {
                       $roles .= "Categories, ";
                     }
-                    if($admin->products_access == 1) {
+                    if($admin->products_view_access == 1) {
                       $roles .= "Products, ";
                     }
-                    if($admin->orders_access == 1) {
+                    if($admin->orders_view_access == 1) {
                       $roles .= "Orders, ";
                     }
-                    if($admin->users_access == 1) {
+                    if($admin->users_view_access == 1) {
                       $roles .= "Users, ";
                     }
                   }
