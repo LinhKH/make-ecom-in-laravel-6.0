@@ -62,6 +62,7 @@
 								<input type="hidden" name="product_color" value="{{ $cart->product_color }}">
 								<input type="hidden" name="size" value="{{ $cart->id }}-{{ $cart->size }}">
 								<input type="hidden" name="price" id="price" value="{{ $cart->price }}">
+								<input type="hidden" name="quantity" id="quantity" value="1">
 								<td class="cart_delete">
 									<button type="submit" class="btn btn-fefault cart" id="cartButton" name="cartButton" value="Add to cart">
 										<i class="fa fa-briefcase"></i>
