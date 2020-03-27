@@ -44,6 +44,8 @@ $(document).ready(function(){
 			url:'/get-product-price',
 			data:{idsize:idsize},
 			success:function(resp){
+				console.log(resp);
+				
 				var arr = resp.split('#');
 				var arr1 = arr[0].split('-');
 				$("#getPrice").html("INR "+arr1[0]+"<br><h2>USD "+arr1[1]+"<br>GBP "+arr1[2]+"<br>EUR "+arr1[3]+"</h2>");

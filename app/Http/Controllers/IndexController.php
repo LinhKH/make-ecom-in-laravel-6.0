@@ -13,7 +13,7 @@ class IndexController extends Controller
 	{
 
 		// Get all Products
-		$productsAll = Product::inRandomOrder()->where('status', 1)->where('feature_item', 1)->paginate(3);
+		$productsAll = Product::inRandomOrder()->where('status', 1)->where('feature_item', 1)->paginate(6);
 		/*$productsAll = json_decode(json_encode($productsAll));*/
 		/*dump($productsAll);*/
 		/*echo "<pre>"; print_r($productsAll);die;*/

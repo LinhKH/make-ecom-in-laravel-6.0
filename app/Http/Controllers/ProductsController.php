@@ -712,7 +712,7 @@ class ProductsController extends Controller
             }
         } else { // Add to Cart
             if (!empty($data['cartButton']) && $data['cartButton'] == 'Add to cart') {
-                $data['quantity'] = 1;
+                // $data['quantity'] = 1;
             }
             // Check Product Stock is available or not
             $product_size = explode("-", $data['size']);
@@ -738,12 +738,20 @@ class ProductsController extends Controller
             $product_size = $sizeIDArr[1];
 
             if (empty(Auth::check())) {
-                $countProducts = DB::table('cart')->where(['product_id' => $data['product_id'], 'product_color' => $data['product_color'], 'size' => $product_size, 'session_id' => $session_id])->count();
+                $countProducts = DB::table('cart')->where([
+                    'product_id' => $data['product_id'], 
+                    'product_color' => $data['product_color'], 
+                    'size' => $product_size, 
+                    'session_id' => $session_id])->count();
                 if ($countProducts > 0) {
                     return redirect()->back()->with('flash_message_error', 'Product already exist in Cart!');
                 }
             } else {
-                $countProducts = DB::table('cart')->where(['product_id' => $data['product_id'], 'product_color' => $data['product_color'], 'size' => $product_size, 'user_email' => $data['user_email']])->count();
+                $countProducts = DB::table('cart')->where([
+                    'product_id' => $data['product_id'], 
+                    'product_color' => $data['product_color'], 
+                    'size' => $product_size, 
+                    'user_email' => $data['user_email']])->count();
                 if ($countProducts > 0) {
                     return redirect()->back()->with('flash_message_error', 'Product already exist in Cart!');
                 }
@@ -753,9 +761,13 @@ class ProductsController extends Controller
             $getSKU = ProductsAttribute::select('sku')->where(['product_id' => $data['product_id'], 'size' => $product_size])->first();
 
             DB::table('cart')->insert([
-                'product_id' => $data['product_id'], 'product_name' => $data['product_name'],
-                'product_code' => $getSKU['sku'], 'product_color' => $data['product_color'],
-                'price' => $data['price'], 'size' => $product_size, 'quantity' => $data['quantity'], 'user_email' => $data['user_email'], 'session_id' => $session_id
+                'product_id' => $data['product_id'], 
+                'product_name' => $data['product_name'],
+                'product_code' => $getSKU['sku'], 
+                'product_color' => $data['product_color'],
+                'price' => $data['price'], 
+                'size' => $product_size, 
+                'quantity' => $data['quantity'], 'user_email' => $data['user_email'], 'session_id' => $session_id
             ]);
 
             return redirect('cart')->with('flash_message_success', 'Product has been added in Cart!');
@@ -893,11 +905,25 @@ class ProductsController extends Controller
             }
 
             // Update User details
-            User::where('id', $user_id)->update(['name' => $data['billing_name'], 'address' => $data['billing_address'], 'city' => $data['billing_city'], 'state' => $data['billing_state'], 'pincode' => $data['billing_pincode'], 'country' => $data['billing_country'], 'mobile' => $data['billing_mobile']]);
+            User::where('id', $user_id)->update([
+                'name' => $data['billing_name'], 
+                'address' => $data['billing_address'], 
+                'city' => $data['billing_city'], 
+                'state' => $data['billing_state'], 
+                'pincode' => $data['billing_pincode'], 
+                'country' => $data['billing_country'], 
+                'mobile' => $data['billing_mobile']]);
 
             if ($shippingCount > 0) {
                 // Update Shipping Address
-                DeliveryAddress::where('user_id', $user_id)->update(['name' => $data['shipping_name'], 'address' => $data['shipping_address'], 'city' => $data['shipping_city'], 'state' => $data['shipping_state'], 'pincode' => $data['shipping_pincode'], 'country' => $data['shipping_country'], 'mobile' => $data['shipping_mobile']]);
+                DeliveryAddress::where('user_id', $user_id)->update([
+                    'name' => $data['shipping_name'], 
+                    'address' => $data['shipping_address'], 
+                    'city' => $data['shipping_city'], 
+                    'state' => $data['shipping_state'], 
+                    'pincode' => $data['shipping_pincode'], 
+                    'country' => $data['shipping_country'], 
+                    'mobile' => $data['shipping_mobile']]);
             } else {
                 // Add New Shipping Address
                 $shipping = new DeliveryAddress;

@@ -73,10 +73,10 @@
 							</div>
 						</div>
 					</div>
-					@endforeach
-					<div align="center">{{ $productsAll->links() }}</div>
+					@endforeach					
 				</div>
 				<!--features_items-->
+				<div align="center">{{ $productsAll->links() }}</div>
 			</div>
 		</div>
 	</div>

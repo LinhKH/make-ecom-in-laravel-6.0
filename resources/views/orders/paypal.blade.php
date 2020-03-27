@@ -1,12 +1,14 @@
 @extends('layouts.frontLayout.front_design')
 @section('content')
-<?php use App\Order; ?>
+<?php
+
+use App\Order; ?>
 <section id="cart_items">
 	<div class="container">
 		<div class="breadcrumbs">
 			<ol class="breadcrumb">
-			  <li><a href="#">Home</a></li>
-			  <li class="active">Thanks</li>
+				<li><a href="#">Home</a></li>
+				<li class="active">Thanks</li>
 			</ol>
 		</div>
 	</div>
@@ -22,7 +24,7 @@
 			$orderDetails = Order::getOrderDetails(Session::get('order_id'));
 			$orderDetails = json_decode(json_encode($orderDetails));
 			/*echo "<pre>"; print_r($orderDetails); die;*/
-			$nameArr = explode(' ',$orderDetails->name);
+			$nameArr = explode(' ', $orderDetails->name);
 			$getCountryCode = Order::getCountryCode($orderDetails->country);
 			?>
 			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -42,10 +44,8 @@
 				<input type="hidden" name="country" value="{{ $getCountryCode->country_code }}">
 				<input type="hidden" name="return" value="{{ url('paypal/thanks') }}">
 				<input type="hidden" name="cancel_return" value="{{ url('paypal/cancel') }}">
-				<input type="image"
-				    src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_paynow_107x26.png" alt="Pay Now">
-				  <img alt="" src="https://paypalobjects.com/en_US/i/scr/pixel.gif"
-				    width="1" height="1">
+				<input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_paynow_107x26.png" alt="Pay Now">
+				<img alt="" src="https://paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 			</form>
 		</div>
 	</div>
