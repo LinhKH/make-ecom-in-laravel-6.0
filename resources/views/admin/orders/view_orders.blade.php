@@ -59,7 +59,7 @@
                   <td class="center">{{ $order->order_status }}</td>
                   <td class="center">{{ $order->payment_method }}</td>
                   <td class="center">
-                    <a target="_blank" href="{{ url('admin/view-order/'.$order->id)}}" class="btn btn-success btn-mini">View Order Details</a><br><br>
+                    <a target="_blank" href="{{ url('admin/view-order-detail/'.$order->id)}}" class="btn btn-success btn-mini">View Order Details</a><br><br>
                     @if($order->order_status == "Paid" || $order->order_status == "Delivered" || $order->order_status == "Shipped" ) 
                     <a target="_blank" href="{{ url('admin/view-order-invoice/'.$order->id)}}" class="btn btn-warning btn-mini">View Order Invoice</a><br><br>
                     <a target="_blank" href="{{ url('admin/view-pdf-invoice/'.$order->id)}}" class="btn btn-primary btn-mini">View PDF Invoice</a> 

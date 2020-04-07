@@ -59,6 +59,14 @@
                 dateFormat: 'yy-mm-dd'
             });
         });
+
+        var listLi = $('#sidebar ul .submenu');
+        $.each( listLi, function( key, value ) {
+        
+            console.log( value );
+
+        });
+        $('.label.label-important').val(listLi);
     </script>
 </body>
 

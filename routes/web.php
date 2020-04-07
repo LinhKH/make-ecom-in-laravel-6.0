@@ -154,7 +154,7 @@ Route::group(['middleware' => ['adminlogin']], function () {
 	Route::get('/admin/view-orders','ProductsController@viewOrders');
 
 	// Admin Order Details Route
-	Route::get('/admin/view-order/{id}','ProductsController@viewOrderDetails');
+	Route::get('/admin/view-order-detail/{id}','ProductsController@viewOrderDetails');
 
 	// Order Invoice
 	Route::get('/admin/view-order-invoice/{id}','ProductsController@viewOrderInvoice');
