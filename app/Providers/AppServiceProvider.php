@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer(
+            ['layouts.frontLayout.front_design','layouts.frontLayout.front_sidebar'], 'App\Http\View\Composers\FrontPageComposer'
+        );
     }
 
     /**
