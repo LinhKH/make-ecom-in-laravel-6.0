@@ -26,10 +26,10 @@
       <ul class="quick-actions">
         <li class="bg_lb"> <a href="{{ url('admin/dashboard') }}"> <i class="icon-dashboard"></i> <span class="label label-important"></span> My Dashboard </a> </li>
         <!-- <li class="bg_lg span3"> <a href="charts.html"> <i class="icon-signal"></i> Charts</a> </li> -->
-        @if(Session::get('adminDetails')['categories_view_access']==1)
+        @if( isset(Session::get('adminDetails')['categories_view_access']) && Session::get('adminDetails')['categories_view_access']==1 )
         <li class="bg_ly"> <a href="{{ url('admin/view-categories') }}"> <i class="icon-inbox"></i><span class="label label-success">101</span> Categories </a> </li>
         @endif
-        @if(Session::get('adminDetails')['products_access']==1)
+        @if( isset(Session::get('adminDetails')['products_access']) && Session::get('adminDetails')['products_access']==1)
         <li class="bg_lo"> <a href="{{ url('admin/view-products') }}"> <i class="icon-inbox"></i><span class="label label-success">101</span> Products </a> </li>
         @endif
         @if(Session::get('adminDetails')['orders_access']==1)

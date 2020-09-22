@@ -31,9 +31,9 @@
 				<input type="hidden" name="item_name" value="{{ Session::get('order_id') }}">
 				<input type="hidden" name="currency_code" value="INR">
 				<input type="hidden" name="amount" value="{{ Session::get('grand_total') }}">
-				<input type="hidden" name="first_name" value="{{ $nameArr[0] }}">
-				<input type="hidden" name="last_name" value="{{ $nameArr[1] }}">
-				<input type="hidden" name="address1" value="{{ $orderDetails->address }}">
+				<input type="hidden" name="first_name" value="{{ $nameArr[0] ?? '' }}">
+				<input type="hidden" name="last_name" value="{{ $nameArr[1] ?? '' }}">
+				<input type="hidden" name="address1" value="{{ $orderDetails->address ?? '' }}">
 				<input type="hidden" name="address2" value="">
 				<input type="hidden" name="city" value="{{ $orderDetails->city }}">
 				<input type="hidden" name="state" value="{{ $orderDetails->state }}">

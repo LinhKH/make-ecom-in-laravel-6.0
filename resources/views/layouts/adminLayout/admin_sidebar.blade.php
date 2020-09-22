@@ -3,7 +3,7 @@
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
     <li <?php if (preg_match("/dashboard/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/dashboard') }}"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
-    @if(Session::get('adminDetails')['categories_full_access']==1)
+    @if( isset(Session::get('adminDetails')['categories_full_access']) && Session::get('adminDetails')['categories_full_access']==1)
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Categories</span> <span class="label label-important">2</span></a>
       <ul <?php if (preg_match("/categor/i", $url)){ ?> style="display: block;" <?php } ?>>
         <li <?php if (preg_match("/add-category/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/add-category')}}">Add Category</a></li>
@@ -13,16 +13,16 @@
     @else
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Categories</span> <span class="label label-important">2</span></a>
       <ul <?php if (preg_match("/categor/i", $url)){ ?> style="display: block;" <?php } ?>>
-        @if(Session::get('adminDetails')['categories_edit_access']==1)
+        @if( isset(Session::get('adminDetails')['categories_edit_access']) && Session::get('adminDetails')['categories_edit_access']==1)
         <li <?php if (preg_match("/add-category/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/add-category')}}">Add Category</a></li>
         @endif
-        @if(Session::get('adminDetails')['categories_view_access']==1)
+        @if( isset(Session::get('adminDetails')['categories_view_access']) && Session::get('adminDetails')['categories_view_access']==1)
         <li <?php if (preg_match("/view-categories/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/view-categories')}}">View Categories</a></li>
         @endif
       </ul>
     </li>
     @endif
-    @if(Session::get('adminDetails')['products_access']==1)
+    @if( isset(Session::get('adminDetails')['products_access']) && Session::get('adminDetails')['products_access']==1)
      <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Products</span> <span class="label label-important">2</span></a>
       <ul <?php if (preg_match("/product/i", $url)){ ?> style="display: block;" <?php } ?>>
         <li <?php if (preg_match("/add-product/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/add-product')}}">Add Product</a></li>
@@ -30,7 +30,7 @@
       </ul>
     </li>
     @endif
-    @if(Session::get('adminDetails')['type']=="Admin")
+    @if( isset(Session::get('adminDetails')['type']) && Session::get('adminDetails')['type']=="Admin")
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Coupons</span> <span class="label label-important">2</span></a>
       <ul <?php if (preg_match("/coupon/i", $url)){ ?> style="display: block;" <?php } ?>>
         <li <?php if (preg_match("/add-coupon/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/add-coupon')}}">Add Coupon</a></li>
@@ -38,7 +38,7 @@
       </ul>
     </li>
     @endif
-    @if(Session::get('adminDetails')['orders_access']==1)
+    @if( isset(Session::get('adminDetails')['orders_access']) && Session::get('adminDetails')['orders_access']==1)
     <?php 
        $base_order_url = trim(basename($url));
     ?>
@@ -49,7 +49,7 @@
       </ul>
     </li>
     @endif
-    @if(Session::get('adminDetails')['type']=="Admin")
+    @if( isset(Session::get('adminDetails')['type']) && Session::get('adminDetails')['type']=="Admin")
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Banners</span> <span class="label label-important">2</span></a>
       <ul <?php if (preg_match("/banner/i", $url)){ ?> style="display: block;" <?php } ?>>
         <li <?php if (preg_match("/add-banner/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/add-banner')}}">Add Banner</a></li>
@@ -57,7 +57,7 @@
       </ul>
     </li>
     @endif
-    @if(Session::get('adminDetails')['users_access']==1)
+    @if( isset(Session::get('adminDetails')['users_access']) && Session::get('adminDetails')['users_access']==1)
     <?php 
        $base_user_url = trim(basename($url));
     ?>
@@ -68,7 +68,7 @@
       </ul>
     </li>
     @endif
-    @if(Session::get('adminDetails')['type']=="Admin")
+    @if(isset(Session::get('adminDetails')['type']) && Session::get('adminDetails')['type']=="Admin")
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>Admins/Sub-Admins</span> <span class="label label-important">2</span></a>
       <ul <?php if (preg_match("/admins/i", $url)){ ?> style="display: block;" <?php } ?>>
         <li <?php if (preg_match("/add-admin/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/add-admin')}}">Add Admin/Sub-Admin</a></li>
@@ -76,7 +76,7 @@
       </ul>
     </li>
     @endif
-    @if(Session::get('adminDetails')['type']=="Admin")
+    @if(isset(Session::get('adminDetails')['type']) && Session::get('adminDetails')['type']=="Admin")
     <li class="submenu"> <a href="#"><i class="icon icon-th-list"></i> <span>CMS Pages</span> <span class="label label-important">2</span></a>
       <ul <?php if (preg_match("/cms-page/i", $url)){ ?> style="display: block;" <?php } ?>>
         <li <?php if (preg_match("/add-cms-page/i", $url)){ ?> class="active" <?php } ?>><a href="{{ url('/admin/add-cms-page')}}">Add CMS Page</a></li>

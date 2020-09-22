@@ -28,7 +28,7 @@ use Carbon\Carbon;
 class ProductsController extends Controller
 {
 	public function addProduct(Request $request){
-        if(Session::get('adminDetails')['products_access']==0){
+        if( isset(Session::get('adminDetails')['products_access']) && Session::get('adminDetails')['products_access']==0){
             return redirect('/admin/dashboard')->with('flash_message_error','You have no access for this module');
         }
 		if($request->isMethod('post')){
@@ -1100,9 +1100,9 @@ class ProductsController extends Controller
                     'productDetails' => $productDetails,
                     'userDetails' => $userDetails
                 ];
-                Mail::send('emails.order',$messageData,function($message) use($email){
-                    $message->to($email)->subject('Order Placed - E-com Website');    
-                });
+                // Mail::send('emails.order',$messageData,function($message) use($email){
+                //     $message->to($email)->subject('Order Placed - E-com Website');    
+                // });
                 /* Code for Order Email Ends */
 
                 // COD - Redirect user to thanks page after saving order
@@ -1171,9 +1171,9 @@ class ProductsController extends Controller
                 'productDetails' => $productDetails,
                 'userDetails' => $userDetails
             ];
-            Mail::send('emails.order',$messageData,function($message) use($email){
-                $message->to($email)->subject('Order Placed - E-com Website');    
-            });
+            // Mail::send('emails.order',$messageData,function($message) use($email){
+            //     $message->to($email)->subject('Order Placed - E-com Website');    
+            // });
             /* Code for Order Email Ends */
 
             // Empty Cart
@@ -1198,7 +1198,7 @@ class ProductsController extends Controller
     }
 
     public function viewOrders(){
-        if(Session::get('adminDetails')['orders_access']==0){
+        if( isset(Session::get('adminDetails')['orders_access']) && Session::get('adminDetails')['orders_access']==0){
             return redirect('/admin/dashboard')->with('flash_message_error','You have no access for this module');
         }
         $orders = Order::with('orders')->orderBy('id','Desc')->get();
@@ -1236,7 +1236,7 @@ class ProductsController extends Controller
     }
 
     public function viewPDFInvoice($order_id){
-        if(Session::get('adminDetails')['orders_access']==0){
+        if( isset(Session::get('adminDetails')['orders_access']) && Session::get('adminDetails')['orders_access']==0){
             return redirect('/admin/dashboard')->with('flash_message_error','You have no access for this module');
         }
         $orderDetails = Order::with('orders')->where('id',$order_id)->first();
@@ -1479,7 +1479,7 @@ footer {
 }
 
     public function updateOrderStatus(Request $request){
-        if(Session::get('adminDetails')['orders_access']==0){
+        if(isset(Session::get('adminDetails')['orders_access']) && Session::get('adminDetails')['orders_access']==0){
             return redirect('/admin/dashboard')->with('flash_message_error','You have no access for this module');
         }
         if($request->isMethod('post')){
